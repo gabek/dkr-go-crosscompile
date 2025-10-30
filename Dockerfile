@@ -49,7 +49,7 @@ RUN curl -sfLo /osxcross/tarballs/MacOSX11.1.sdk.tar.xz https://github.com/bdwye
     && apk del .build-deps
 
 # ARM64
-RUN curl -sfL "https://musl.cc/aarch64-linux-musl-cross.tgz" | tar zxf - -C /usr/ --strip-components=1
+RUN curl -sfL "https://owncast-infra.nyc3.cdn.digitaloceanspaces.com/build/aarch64-linux-musl-cross.tgz" | tar zxf - -C /usr/ --strip-components=1
 
 ENV LD_LIBRARY_PATH=/osxcross/target/lib
 ENV PATH /osxcross/target/bin:$PATH
