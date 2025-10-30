@@ -19,9 +19,9 @@ jobs:
       matrix:
         tag:
           - '1.25'
-          # - '1.24'
-          # - '1.23'
-          # - '1.22'
+          - '1.24'
+          - '1.23'
+          - '1.22'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -70,7 +70,5 @@ jobs:
           push: true
           build-args: |
             DOCKER_TAG=${{ matrix.tag }}
-          tags: |
-            ${{ env.IMAGE_NAME }}:${{ matrix.tag }}
-            ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
