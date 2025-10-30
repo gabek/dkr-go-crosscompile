@@ -1,18 +1,20 @@
 ARG GOLANG_VERSION='1.25'
-FROM golang:$GOLANG_VERSION-alpine as go
+FROM golang:$GOLANG_VERSION-alpine AS go
 
 FROM alpine:3.18
 
+ARG GOLANG_VERSION='1.25'
+
 COPY --from=go /usr/local/go /usr/local/go
 
-ENV GOLANG_VERSION $GOLANG_VERSION
+ENV GOLANG_VERSION=$GOLANG_VERSION
 
 # don't auto-upgrade the gotoolchain
 # https://github.com/docker-library/golang/issues/472
 ENV GOTOOLCHAIN=local
 
-ENV GOPATH /go
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+ENV GOPATH=/go
+ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 
 COPY --from=go /go /go
 
@@ -52,6 +54,6 @@ RUN curl -sfLo /osxcross/tarballs/MacOSX11.1.sdk.tar.xz https://github.com/bdwye
 RUN curl -sfL "https://owncast-infra.nyc3.cdn.digitaloceanspaces.com/build/aarch64-linux-musl-cross.tgz" | tar zxf - -C /usr/ --strip-components=1
 
 ENV LD_LIBRARY_PATH=/osxcross/target/lib
-ENV PATH /osxcross/target/bin:$PATH
+ENV PATH=/osxcross/target/bin:$PATH
 
 WORKDIR /go
