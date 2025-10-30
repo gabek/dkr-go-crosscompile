@@ -1,4 +1,4 @@
-ARG GOLANG_VERSION='1.23'
+ARG GOLANG_VERSION='1.25'
 FROM golang:$GOLANG_VERSION-alpine as go
 
 FROM alpine:3.18
